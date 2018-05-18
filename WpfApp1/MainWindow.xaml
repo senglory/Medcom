@@ -1,0 +1,283 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:win="clr-namespace:System.Windows;assembly=PresentationCore"
+        xmlns:wpfsharp="clr-namespace:WpfSharp.Controls;assembly=WpfSharp.Controls"
+        xmlns:l="clr-namespace:WpfApp1"
+        mc:Ignorable="d" 
+        Height="480" Width="640">
+
+    <Window.Resources>
+        <ObjectDataProvider MethodName="GetType"
+                            ObjectType="{x:Type sys:Type}" 
+                            x:Key="colorsType">
+            <ObjectDataProvider.MethodParameters>
+                <sys:String>System.Windows.Media.Colors, PresentationCore,
+                              Version=4.0.0.0, Culture=neutral,
+                              PublicKeyToken=31bf3856ad364e35</sys:String>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider ObjectInstance="{StaticResource colorsType}" MethodName="GetProperties" x:Key="colorProperties"/>
+        <wpfsharp:StringToWordsConverter x:Key="StringToWordsConverter" />
+
+        <!-- Default DataTemplate -->
+        <DataTemplate x:Key="DefaultDataTemplate">
+        </DataTemplate>
+
+        <DataTemplate x:Key="NoteDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Name -->
+                <TextBlock Text="Name:" Margin="5" />
+                <wpfsharp:SearchableTextBlock Grid.Column="1" Margin="5"
+                                              SearchWords="{Binding ElementName=txtFilter, Path=Text, Converter={StaticResource ResourceKey=StringToWordsConverter}}"
+                                          HighlightableText="{Binding Name}"
+                                          HighlightBackground="Red"  
+                                          HighlightForeground="White"
+                                         RegexOptions="IgnoreCase"
+                                          />
+
+
+                <!-- Content -->
+                <TextBlock Grid.Row="1" Text="Content:" Margin="5" />
+                <wpfsharp:SearchableTextBlock Grid.Row="1" Grid.Column="1" Margin="5"
+                                              SearchWords="{Binding ElementName=txtFilter, Path=Text, Converter={StaticResource ResourceKey=StringToWordsConverter}}"
+                                          HighlightableText="{Binding Content}"
+                                          HighlightBackground="Red"  
+                                          HighlightForeground="White"
+                                         RegexOptions="IgnoreCase"
+                                          />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="WebAccDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Name -->
+                <TextBlock Text="Name:" Margin="5" />
+                <wpfsharp:SearchableTextBlock Grid.Column="1" Margin="5"
+                                              SearchWords="{Binding ElementName=txtFilter, Path=Text, Converter={StaticResource ResourceKey=StringToWordsConverter}}"
+                                          HighlightableText="{Binding Name}"
+                                          HighlightBackground="Red"  
+                                          HighlightForeground="White"
+                                         RegexOptions="IgnoreCase"
+                                          />
+
+                <!-- Link -->
+                <TextBlock Grid.Row="1" Text="Url:" Margin="5" />
+                <wpfsharp:SearchableTextBlock Grid.Row="1" Grid.Column="1" Margin="5"
+                                              SearchWords="{Binding ElementName=txtFilter, Path=Text, Converter={StaticResource ResourceKey=StringToWordsConverter}}"
+                                          HighlightableText="{Binding Url}"
+                                          HighlightBackground="Red"  
+                                          HighlightForeground="White"
+                                         RegexOptions="IgnoreCase"
+                                          />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CreditCardDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Name -->
+                <TextBlock Text="Name:" Margin="5" />
+                <wpfsharp:SearchableTextBlock Grid.Column="1" Margin="5"
+                                              SearchWords="{Binding ElementName=txtFilter, Path=Text, Converter={StaticResource ResourceKey=StringToWordsConverter}}"
+                                          HighlightableText="{Binding Name}"
+                                          HighlightBackground="Red"  
+                                          HighlightForeground="White"
+                                         RegexOptions="IgnoreCase"
+                                          />
+
+                <!-- Number -->
+                <TextBlock Grid.Row="1" Text="Number:" Margin="5" />
+                <wpfsharp:SearchableTextBlock Grid.Row="1" Grid.Column="1" Margin="5"
+                                              SearchWords="{Binding ElementName=txtFilter, Path=Text, Converter={StaticResource ResourceKey=StringToWordsConverter}}"
+                                          HighlightableText="{Binding Number}"
+                                          HighlightBackground="Red"  
+                                          HighlightForeground="White"
+                                         RegexOptions="IgnoreCase"
+                                          />
+
+                <!-- ExpDate -->
+                <TextBlock Grid.Row="2" Text="ExpDate:" Margin="5"/>
+                <wpfsharp:SearchableTextBlock Grid.Row="2" Grid.Column="1" Margin="5"
+                                              SearchWords="{Binding ElementName=txtFilter, Path=Text, Converter={StaticResource ResourceKey=StringToWordsConverter}}"
+                                          HighlightableText="{Binding ExpDate}"
+                                          HighlightBackground="Red"  
+                                          HighlightForeground="White"
+                                         RegexOptions="IgnoreCase"
+                                          />
+            </Grid>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="EditNoteDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Name -->
+                <TextBlock Text="Name:" Margin="5" />
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Name}" />
+
+                <!-- Content -->
+                <TextBlock Grid.Row="1" Text="Content:" Margin="5" />
+                <TextBox Grid.Row="1" Grid.Column="1"  Margin="5" Text="{Binding Content}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="EditWebAccDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Name -->
+                <TextBlock Text="Name:" Margin="5" />
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Name}" />
+
+                <!-- Link -->
+                <TextBlock Grid.Row="1" Text="Url:" Margin="5" />
+                <TextBox Grid.Row="1" Grid.Column="1"  Margin="5" Text="{Binding Url}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="EditCreditCardDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Name -->
+                <TextBlock Text="Name:" Margin="5" />
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Name}" />
+
+                <!-- Last Name -->
+                <TextBlock Grid.Row="1" Text="Number:" Margin="5" />
+                <TextBox Grid.Row="1" Grid.Column="1"  Margin="5" Text="{Binding Number}" />
+
+                <!-- ExpDate -->
+                <TextBlock Grid.Row="2" Text="ExpDate:" Margin="5"/>
+                <TextBox Grid.Row="2" Grid.Column="1"  Margin="5" Text="{Binding ExpDate}"/>
+            </Grid>
+        </DataTemplate>
+
+        <l:ItemTemplateSelector x:Key="viewTemplateSelector"
+              DefaultnDataTemplate="{StaticResource DefaultDataTemplate}"
+              NoteDataTemplate="{StaticResource NoteDataTemplate}" 
+              WebAccDataTemplate="{StaticResource WebAccDataTemplate}" 
+              CreditCardDataTemplate="{StaticResource CreditCardDataTemplate}" 
+                                        />
+        <l:ItemTemplateSelector x:Key="editTemplateSelector"
+              DefaultnDataTemplate="{StaticResource DefaultDataTemplate}"
+              NoteDataTemplate="{StaticResource EditNoteDataTemplate}" 
+              WebAccDataTemplate="{StaticResource EditWebAccDataTemplate}" 
+              CreditCardDataTemplate="{StaticResource EditCreditCardDataTemplate}" 
+                                        />
+    </Window.Resources>
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="7 7 7 7">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="txtStoragePath" Width="200" Text="{Binding StoragePath}"/>
+                    <Button Content="Open" Command="{Binding OpenCommand}" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="txtFilter" HorizontalAlignment="Left" Height="23"  VerticalAlignment="Top" Width="120"/>
+                    <Button Content="Search"  Command="{Binding SearchCommand}"  CommandParameter="{Binding Text, ElementName=txtFilter}" />
+                    <Button Content="Add Note" Width="75" Command="{Binding AddNoteCommand}" />
+                    <Button Content="Add WebUrl" Width="75" Command="{Binding AddWebUrlCommand}" />
+                    <Button Content="Add CreditCard" Width="75" Command="{Binding AddCreditCardCommand}" />
+                </StackPanel>
+            </StackPanel>
+            <Grid Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+
+                    <ListBox
+                    Height="300"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Stretch" 
+                     VerticalContentAlignment="Top"
+                     x:Name="RecordsList"
+                     ItemsSource="{Binding AllRecords}"
+                     SelectedItem="{Binding SelectedRec}"
+                     ItemTemplateSelector="{StaticResource viewTemplateSelector}"
+                     />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Prev" Command="{Binding PrevCommand}" />
+                        <Button Content="Next" Command="{Binding NextCommand}"  />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <ContentControl VerticalContentAlignment="Stretch" 
+                                    x:Name="TheRecord"
+                            Content="{Binding SelectedRec}"
+                            ContentTemplateSelector="{StaticResource ResourceKey=editTemplateSelector}" 
+                            >
+                    </ContentControl>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SelectedRec, TargetNullValue=Hidden}">
+                        <Button Content="Save"  Height="23"  Command="{Binding SaveCommand}"  CommandParameter="{Binding ElementName=TheRecord}"></Button>
+                        <Button Content="Cancel"  Height="23"  Command="{Binding CancelCommand}"  ></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </StackPanel>
+</Window>
